@@ -81,30 +81,29 @@
 
       function registerAsButton(element, event, data){
 
-        // element.on({
-        //   'touchend':function(e){
-        //     socket.emit(event, $.extend(data, {down: false}));
-        // window.navigator.vibrate(200);
-        //   },
-        //   'touchstart': function(e){
-        //     socket.emit(event, $.extend(data, {down: true}));
-        //   },
-        //   'touchcancel': function(e){
-        //     socket.emit(event, $.extend(data, {down: false}));
-        //   },
-        // });
-
-         element.on({
-           'vmousedown': function(e){
-             socket.emit(event, $.extend(data, {down: true, id: mId}));
-           },
-           'vmouseup':function(e){
-             socket.emit(event, $.extend(data, {down: false, id: mId}));
-           },
-           'vmousecancel': function(e){
-             socket.emit(event, $.extend(data, {down: false, id: mId}));
+        element.on({
+          'touchend':function(e){
+            socket.emit(event, $.extend(data, {down: false, id: mId}));
           },
-         });
+          'touchstart': function(e){
+            socket.emit(event, $.extend(data, {down: true, id: mId}));
+          },
+          'touchcancel': function(e){
+            socket.emit(event, $.extend(data, {down: false, id: mId}));
+          },
+        });
+
+        // element.on({
+        //   'vmousedown': function(e){
+        //     socket.emit(event, $.extend(data, {down: true, id: mId}));
+        //   },
+        //   'vmouseup':function(e){
+        //     socket.emit(event, $.extend(data, {down: false, id: mId}));
+        //   },
+        //   'vmousecancel': function(e){
+        //     socket.emit(event, $.extend(data, {down: false, id: mId}));
+        //  },
+        // });
       }
       registerAsButton($('#left'), 'move', {dir: 'left'});
       registerAsButton($('#right'), 'move', {dir: 'right'});
