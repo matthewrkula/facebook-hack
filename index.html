@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html>
-
-  <head><title>Node Test</title></head>
-  <script src="http://code.jquery.com/jquery-latest.min.js"
-        type="text/javascript"></script>
-
-  <script src="/socket.io/socket.io.js"></script>
+  <head>
+    <title>Node Test</title></head>
+    <script src='http://code.jquery.com/jquery-latest.min.js' type='text/javascript'></script>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
 <body>
-
-
   <canvas id="canvas" width="1000" height="500">
   </canvas>
 
@@ -58,7 +55,7 @@
           if(_this.radius < 70)
             _this.radius += 8;
           else{
-            console.log('asdf')
+            console.log('yo!')
             delete this;
           }
 
@@ -102,7 +99,7 @@
 
     setInterval(paint, 60);
 
-    var socket = io.connect('http://192.17.207.254:8000');
+    var socket = io.connect('http://facebook-hack.nodejitsu.com');
 
     socket.on('a-btn', function (data) {
       if(data.down){
