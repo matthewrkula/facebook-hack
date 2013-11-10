@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <title>Node Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <script src="/socket.io/socket.io.js"></script>
@@ -61,7 +62,10 @@
       <div id="a-button"></div>
 
     <script>
-      var socket = io.connect('http://facebook-hack.nodejitsu.com');
+      var socket = io.connect('http://facebook-hack.nodejitsu.com',
+        { rememberTransport: false, 
+          transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling']
+      });
 
       function registerAsButton(element, event, data){
 

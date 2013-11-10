@@ -6,11 +6,8 @@
     <script src="/socket.io/socket.io.js"></script>
   </head>
 <body>
-  <canvas id="canvas" width="1000" height="500">
-  </canvas>
-
+  <canvas id="canvas" width="1000" height="500"></canvas>
   <img src="http://qrickit.com/api/qr?d=http://10.0.0.7:8000/controls.html">
-
   <script>
     var canvas = $("#canvas")[0];
     var ctx = canvas.getContext("2d");
@@ -102,7 +99,10 @@
 
     setInterval(paint, 60);
 
-    var socket = io.connect('http://facebook-hack.nodejitsu.com');
+    var socket = io.connect('http://facebook-hack.nodejitsu.com', 
+      { rememberTransport: false, 
+        transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling']}
+    );
 
     socket.on('a-btn', function (data) {
       if(data.down){
