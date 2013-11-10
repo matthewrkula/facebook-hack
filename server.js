@@ -1,7 +1,5 @@
 var app = require('http').createServer(handler)
-  , io = require('socket.io', 
-    { rememberTransport: false, 
-      transports: ['WebSocket', 'Flash Socket', 'AJAX long-polling'] }).listen(app)
+  , io = require('socket.io').listen(app)
   , fs = require('fs')
 
 app.listen(80);
