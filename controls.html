@@ -61,7 +61,23 @@
       <div id="a-button"></div>
 
     <script>
-      var socket = io.connect('http://facebook-hack.nodejitsu.com');
+      function makeid()
+      {
+          var text = "";
+          var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+          for( var i=0; i < 5; i++ )
+              text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+          return text;
+      }
+
+      // var socket = io.connect('http://facebook-hack.nodejitsu.com');
+      var socket = io.connect('http://192.17.207.254:8000');
+
+      var mId = makeid();
+
+      socket.emit('new-player', { id : mId });
 
       function registerAsButton(element, event, data){
 
@@ -80,13 +96,13 @@
 
          element.on({
            'vmousedown': function(e){
-             socket.emit(event, $.extend(data, {down: true}));
+             socket.emit(event, $.extend(data, {down: true, id: mId}));
            },
            'vmouseup':function(e){
-             socket.emit(event, $.extend(data, {down: false}));
+             socket.emit(event, $.extend(data, {down: false, id: mId}));
            },
            'vmousecancel': function(e){
-             socket.emit(event, $.extend(data, {down: false}));
+             socket.emit(event, $.extend(data, {down: false, id: mId}));
           },
          });
       }
