@@ -1,9 +1,11 @@
 var app = require('http').createServer(handler)
   , io = require('socket.io').listen(app)
-  , fs = require('fs')
+  , fs = require('fs');
 
-// app.listen(80);
-app.listen(8000);
+var port = 80; // production
+//var port = 8000; // Val/Matt development
+
+app.listen(port);
 
 function handler (req, res) {
   fs.readFile(__dirname + req.url,
@@ -19,7 +21,6 @@ function handler (req, res) {
 }
 
 io.sockets.on('connection', function (socket) {
-
   socket.on('new-player', function(data){
     socket.broadcast.emit('add-player', data);
   });

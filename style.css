@@ -1,0 +1,30 @@
+/* canvas: 1000 x 500 */
+
+.clear {
+  clear: both;
+}
+
+#game-container {
+  float: left;
+  width: 1000px;
+}
+
+#sidebar {
+  width: 200px;
+  float: left;
+}
+
+.player-score {
+  text-align: center;
+  line-height: 100px;
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  padding: 20px;
+  font-weight: bold;
+  font-size: 50px;
+  font-family: 'Arial', sans-serif;
+}
+
+#bottom-container {
+}

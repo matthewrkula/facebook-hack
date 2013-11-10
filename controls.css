@@ -1,0 +1,43 @@
+* {
+  -webkit-user-select: none;
+}
+div {
+  width: 75px;
+  height: 75px;
+}
+  #left {
+    position: relative;
+    background: #ff0000;
+    top: 75px;
+  }
+  #right {
+    position: relative;
+    background: #00ff00;
+    left: 150px;
+  }
+  #down {
+    position: relative;
+    left: 75px;
+    top: -75px;
+    background: #0000ff;
+  }
+  #up {
+    position: relative;
+    top: -150px;
+    left: 75px;
+    background: #ff00ff;
+  }
+  #a-button {
+    position: relative;
+    top: -250px;
+    left: 400px;
+    width: 100px;
+    height: 100px;
+    background: #00ff00;
+  }
+  .ui-loader {
+    display: none;
+  }
+  .ui-page {
+    min-height: 0px !important;
+  }
