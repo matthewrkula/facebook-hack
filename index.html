@@ -40,9 +40,10 @@
       }
     }
 
-    function Bomb(x, y){
-      this.x = x;
-      this.y = y;
+    function Bomb(player){
+      this.player = player
+      this.x = this.player.x;
+      this.y = this.player.y;
       var _this = this;
       this.radius = 0;
       this.hasExploded = false;
@@ -53,7 +54,7 @@
 
         if(_this.hasExploded){
           ctx.beginPath();
-          ctx.arc(x, y, _this.radius, 0, 2 * Math.PI, false);
+          ctx.arc(_this.x, _this.y, _this.radius, 0, 2 * Math.PI, false);
           ctx.fill();
           if(_this.radius < 70)
             _this.radius += 8;
@@ -63,8 +64,10 @@
 
           for(var playerId in players){
             var player = players[playerId];
-            if(Math.sqrt(Math.pow(x - player.x, 2) + Math.pow(y - player.y, 2)) < _this.radius){
+            if(Math.sqrt(Math.pow(_this.x - player.x, 2) + Math.pow(_this.y - player.y, 2)) < _this.radius){
               player.kill();
+              _this.player.score++;
+              console.log(_this.player.score);
             }
           }
 
@@ -110,8 +113,8 @@
     var colors = ["blue", "red", "green"];
     var nextColorIndex = 0;
 
-    var socket = io.connect('http://facebook-hack.nodejitsu.com');
-    // var socket = io.connect('http://192.17.207.254:8000');
+    // var socket = io.connect('http://facebook-hack.nodejitsu.com');
+    var socket = io.connect('http://192.17.207.254:8000');
 
     socket.on('add-player', function(data){
       players[data.id] = new Player(100, 100, colors[nextColorIndex]);
@@ -119,37 +122,25 @@
     });
 
     socket.on('a-btn', function (data) {
-      if(data.down){
-        bombs.push(new Bomb(players[data.id].x, players[data.id].y));
+      if(data.pressed){
+        bombs.push(new Bomb(players[data.id]));
       }
     });
 
     socket.on('left', function (data) {
-      if(data.down)
-        players[data.id].xVel = -10;
-      else
-        players[data.id].xVel = 0;
+      players[data.id].xVel = data.pressed ? -10 : 0;
     });
 
     socket.on('right', function(data){
-      if(data.down)
-        players[data.id].xVel = 10;
-      else
-        players[data.id].xVel = 0;
+      players[data.id].xVel = data.pressed ? 10 : 0;
     });
 
     socket.on('up', function (data) {
-      if(data.down)
-        players[data.id].yVel = -10;
-      else
-        players[data.id].yVel = 0;
+      players[data.id].yVel = data.pressed ? -10 : 0;
     });
 
     socket.on('down', function (data) {
-      if(data.down)
-        players[data.id].yVel = 10;
-      else
-        players[data.id].yVel = 0;
+      players[data.id].yVel = data.pressed ? 10 : 0;
     });
 
   </script>
