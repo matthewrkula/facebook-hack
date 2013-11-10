@@ -1,6 +1,6 @@
   //var ipAddress = 'http://192.17.192.148:8000'; // Val
-  //var ipAddress = 'http://192.17.207.254:8000'; // Matt
-var ipAddress = 'http://facebook-hack.nodejitsu.com'; // production
+  var ipAddress = 'http://192.17.207.254:8000'; // Matt
+// var ipAddress = 'http://facebook-hack.nodejitsu.com'; // production
 
 var canvas = $("#canvas")[0];
 var ctx = canvas.getContext("2d");
@@ -18,24 +18,26 @@ function Player(id, x, y, color){
   this.yVel = 0;
   this.color = color;
   this.score = 0;
+  this.idleCount = 0;
+  var _this = this;
   this.kill = function(){
     this.x = Math.random() * w;
     this.y = Math.random() * h;
     this.decrementScore();
   };
-  this.incrementScore = function(){
+  this.incrementScore = function() {
     this.score = this.score + 1;
     this.updateScoreDiv();
   }
-  this.decrementScore = function(){
+  this.decrementScore = function() {
     this.score = this.score - 1;
     this.updateScoreDiv();
   }
-  this.updateScoreDiv = function(){
+  this.updateScoreDiv = function() {
     var playerScoreDiv = document.getElementById('player-score-' + this.id);
     playerScoreDiv.innerHTML = this.score;
   }
-  this.paint = function(ctx){
+  this.paint = function(ctx) {
     ctx.fillStyle = color;
     ctx.fillRect(this.x, this.y, 15, 15);
 
@@ -44,6 +46,19 @@ function Player(id, x, y, color){
     if(this.y + this.yVel <= h - 15 && this.y + this.yVel >= 0)
       this.y += this.yVel;
   }
+  this.resetIdleCount = function() {
+    this.idleCount = 0;
+  }
+  this.incrementIdleCount = function() {
+    _this.idleCount = _this.idleCount + 1;
+    if(_this.idleCount >= 20){
+      document.getElementById('scores-container').removeChild(document.getElementById('player-score-'+_this.id));
+      delete players[_this.id];
+    }else{
+      setTimeout(_this.incrementIdleCount, 1000);
+    }
+  }
+  setTimeout(this.incrementIdleCount, 1000);
 }
 
 function Bomb(player){
@@ -136,21 +151,29 @@ socket.on('add-player', function(data){
 socket.on('a-btn', function (data) {
   if(data.pressed){
     bombs.push(new Bomb(players[data.id]));
+    players[data.id].resetIdleCount();
   }
 });
 
+function movePlayer(value, movingSpeed, data){
+  if(players.hasOwnProperty(data.id)){
+    players[data.id][value] = data.pressed ? movingSpeed : 0;
+    players[data.id].resetIdleCount();
+  }
+}
+
 socket.on('left', function (data) {
-  players[data.id].xVel = data.pressed ? -10 : 0;
+  movePlayer('xVel', -10, data);
 });
 
 socket.on('right', function(data){
-  players[data.id].xVel = data.pressed ? 10 : 0;
+  movePlayer('xVel', 10, data);
 });
 
 socket.on('up', function (data) {
-  players[data.id].yVel = data.pressed ? -10 : 0;
+  movePlayer('yVel', -10, data); 
 });
 
 socket.on('down', function (data) {
-  players[data.id].yVel = data.pressed ? 10 : 0;
+  movePlayer('yVel', 10, data);
 });
