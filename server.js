@@ -21,7 +21,7 @@ function handler(req, res) {
 }
 
 io.sockets.on('connection', function (socket) {
-  socket.on('new-player', function(data){
+  socket.on('new-player', function(data) {
     socket.broadcast.emit('add-player', data);
   });
 
