@@ -82,6 +82,28 @@ function Player(id, x, y, color) {
   setTimeout(this.incrementIdleCount, 1000);
 }
 
+Player.getScoresContainer = function() {
+  return document.getElementById('scores-container');
+};
+
+Player.getPlayerScoreNode = function(playerId) {
+  return document.getElementById('player-score-' + playerId);
+};
+
+Player.getPlayers = function() {
+  return players;
+};
+
+Player.removePlayerScore = function(playerId) {
+  Player.getScoresContainer().removeChild(
+    Player.getPlayerScoreNode(playerId));
+};
+
+Player.removePlayer = function(playerId) {
+  Player.removePlayerScore(playerId);
+  delete Player.getPlayers()[playerId];
+};
+
 function Bomb(player) {
   this.player = player
   this.x = this.player.x;
@@ -155,7 +177,7 @@ function setupScoreBoard(data) {
 }
 
 socket.on('quit-game', function(data) {
-  removePlayer(data.id);
+  Player.removePlayer(data.id);
 });
 
 socket.on('add-player', function(data) {
