@@ -11,6 +11,7 @@ function handler (req, res) {
   fs.readFile(__dirname + req.url, function (err, data) {
     if (err) {
       res.writeHead(404);
+      res.write('<a href="/index.html">This is what you are looking for</a>');
       return res.end('<h1>Page not found.</h1>');
     }
 
