@@ -26,6 +26,12 @@
       this.xVel = 0;
       this.yVel = 0;
       this.color = color;
+      this.score = 0;
+      this.kill = function(){
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.score = this.score - 1;
+      }
       this.paint = function(ctx){
         ctx.fillStyle = color;
         ctx.fillRect(this.x, this.y, 15, 15);
@@ -55,20 +61,17 @@
           if(_this.radius < 70)
             _this.radius += 8;
           else{
-            console.log('yo!')
-            delete this;
+            bombs.splice(bombs.indexOf(_this), 1);    // Destroy this bomb
           }
 
           for(var i=0; i < players.length; i++){
             var player = players[i];
             if(Math.sqrt(Math.pow(x - player.x, 2) + Math.pow(y - player.y, 2)) < _this.radius){
-              player.x = Math.random()*w;
-              player.y = Math.random()*h;
+              player.kill();
             }
           }
 
-
-        }else{
+        } else {
           ctx.fillRect(this.x, this.y, 10, 10);
         }
       }
