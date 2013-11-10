@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+  <head><title>Node Test</title></head>
+  <script src="http://code.jquery.com/jquery-latest.min.js"
+        type="text/javascript"></script>
+
+  <script src="/socket.io/socket.io.js"></script>
+<body>
+
+
+  <canvas id="canvas" width="1000" height="500">
+  </canvas>
+
+  <img src="http://qrickit.com/api/qr?d=http://10.0.0.7:8000/controls.html">
+
+  <script>
+    var canvas = $("#canvas")[0];
+    var ctx = canvas.getContext("2d");
+    var w = $("#canvas").width();
+    var h = $("#canvas").height();
+
+    function Player(x, y, color){
+      this.x = x;
+      this.y = y;
+      this.xVel = 0;
+      this.yVel = 0;
+      this.color = color;
+      this.paint = function(ctx){
+        ctx.fillStyle = color;
+        ctx.fillRect(this.x, this.y, 15, 15);
+
+        this.x += this.xVel;
+        this.y += this.yVel;
+      }
+    }
+
+    function Bomb(x, y){
+      this.x = x;
+      this.y = y;
+      var _this = this;
+      this.radius = 0;
+      this.hasExploded = false;
+
+      this.paint = function(ctx){
+        ctx.fillStyle = "red";
+
+        if(_this.hasExploded){
+          ctx.beginPath();
+          ctx.arc(x, y, _this.radius, 0, 2 * Math.PI, false);
+          ctx.fill();
+          if(_this.radius < 70)
+            _this.radius += 8;
+
+        }else{
+          ctx.fillRect(this.x, this.y, 10, 10);
+        }
+      }
+
+      this.explode = function(){
+        _this.hasExploded = true;
+        console.log("EXPLODE");
+      }
+
+      setTimeout(this.explode, 2000);
+    }
+
+    var bombs = [];
+    var players = [];
+
+    players.push(new Player(100, 100, "blue"));
+
+    function paint(){
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, w, h);
+      ctx.strokeStyle = "black";
+      ctx.strokeRect(0, 0, w, h);
+
+      for(var i =0; i < bombs.length; i++)
+        bombs[i].paint(ctx);
+
+      for(i =0; i < players.length; i++)
+        players[i].paint(ctx);
+   }
+
+    setInterval(paint, 60);
+
+    var socket = io.connect('http://localhost');
+
+    socket.on('a-btn', function (data) {
+      if(data.down){
+        bombs.push(new Bomb(players[0].x, players[0].y));
+      }
+    });
+
+    socket.on('left', function (data) {
+      if(data.down)
+        players[0].xVel = -10;
+      else
+        players[0].xVel = 0;
+    });
+
+    socket.on('right', function(data){
+      if(data.down)
+        players[0].xVel = 10;
+      else
+        players[0].xVel = 0;
+    });
+
+    socket.on('up', function (data) {
+      if(data.down)
+        players[0].yVel = -10;
+      else
+        players[0].yVel = 0;
+    });
+
+    socket.on('down', function (data) {
+      if(data.down)
+        players[0].yVel = 10;
+      else
+        players[0].yVel = 0;
+    });
+
+  </script>
+</body>
+</html>
