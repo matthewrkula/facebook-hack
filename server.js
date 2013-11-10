@@ -7,7 +7,7 @@ var port = 80; // production
 
 app.listen(port);
 
-function handler (req, res) {
+function handler(req, res) {
   fs.readFile(__dirname + req.url, function (err, data) {
     if (err) {
       res.writeHead(404);
