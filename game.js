@@ -76,14 +76,6 @@ function Bomb(player){
           console.log(_this.player.score);
         }
       }
-
-      // for(var i=0; i < players.length; i++){
-      //   var player = players[i];
-        // if(Math.sqrt(Math.pow(x - player.x, 2) + Math.pow(y - player.y, 2)) < _this.radius){
-        //   player.kill();
-        // }
-      // }
-
     } else {
       ctx.fillRect(this.x, this.y, 10, 10);
     }

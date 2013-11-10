@@ -24,32 +24,32 @@ function registerAsButton(element, event, data){
   //
   // PRODUCTION
   //
-  element.on({
-    'touchend':function(e){
-      socket.emit(event, $.extend(data, {down: false, id: mId}));
-    },
-    'touchstart': function(e){
-      socket.emit(event, $.extend(data, {down: true, id: mId}));
-    },
-    'touchcancel': function(e){
-      socket.emit(event, $.extend(data, {down: false, id: mId}));
-    },
-  });
+  //element.on({
+    //'touchend':function(e){
+      //socket.emit(event, $.extend(data, {down: false, id: mId}));
+    //},
+    //'touchstart': function(e){
+      //socket.emit(event, $.extend(data, {down: true, id: mId}));
+    //},
+    //'touchcancel': function(e){
+      //socket.emit(event, $.extend(data, {down: false, id: mId}));
+    //},
+  //});
 
   //
   // DEVELOPMENT
   //
-    //element.on({
-      //'vmousedown': function(e){
-        //socket.emit(event, $.extend(data, {pressed: true, id: mId}));
-      //},
-      //'vmouseup':function(e){
-        //socket.emit(event, $.extend(data, {pressed: false, id: mId}));
-      //},
-      //'vmousecancel': function(e){
-        //socket.emit(event, $.extend(data, {pressed: false, id: mId}));
-      //},
-    //});
+    element.on({
+      'vmousedown': function(e){
+        socket.emit(event, $.extend(data, {pressed: true, id: mId}));
+      },
+      'vmouseup':function(e){
+        socket.emit(event, $.extend(data, {pressed: false, id: mId}));
+      },
+      'vmousecancel': function(e){
+        socket.emit(event, $.extend(data, {pressed: false, id: mId}));
+      },
+    });
 }
 registerAsButton($('#left'), 'move', {dir: 'left'});
 registerAsButton($('#right'), 'move', {dir: 'right'});
