@@ -24,8 +24,8 @@ function Player(id, x, y, color) {
   var _this = this;
 
   this.kill = function() {
-    this.x = Math.random() * w;
-    this.y = Math.random() * h;
+    this.x = Math.random() * (w - playerWidth);
+    this.y = Math.random() * (h - playerHeight);
     this.decrementScore();
   };
 
