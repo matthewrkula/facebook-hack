@@ -7,7 +7,7 @@
   </head>
 <body>
   <canvas id="canvas" width="1000" height="500"></canvas>
-  <img src="http://qrickit.com/api/qr?d=http://10.0.0.7:8000/controls.html">
+  <img src="http://qrickit.com/api/qr?d=http://facebook-hack.nodejitsu.com/controls.html">
   <script>
     var canvas = $("#canvas")[0];
     var ctx = canvas.getContext("2d");
@@ -110,8 +110,8 @@
     var colors = ["blue", "red", "green"];
     var nextColorIndex = 0;
 
-    // var socket = io.connect('http://facebook-hack.nodejitsu.com');
-    var socket = io.connect('http://192.17.207.254:8000');
+    var socket = io.connect('http://facebook-hack.nodejitsu.com');
+    // var socket = io.connect('http://192.17.207.254:8000');
 
     socket.on('add-player', function(data){
       players[data.id] = new Player(100, 100, colors[nextColorIndex]);
