@@ -1,43 +1,65 @@
 * {
   -webkit-user-select: none;
 }
-div {
-  width: 75px;
-  height: 75px;
+
+body {
+  margin: 0;
+  padding: 0;
 }
-  #left {
-    position: relative;
-    background: #ff0000;
-    top: 75px;
-  }
-  #right {
-    position: relative;
-    background: #00ff00;
-    left: 150px;
-  }
-  #down {
-    position: relative;
-    left: 75px;
-    top: -75px;
-    background: #0000ff;
-  }
-  #up {
-    position: relative;
-    top: -150px;
-    left: 75px;
-    background: #ff00ff;
-  }
-  #a-button {
-    position: relative;
-    top: -250px;
-    left: 400px;
-    width: 100px;
-    height: 100px;
-    background: #00ff00;
-  }
-  .ui-loader {
-    display: none;
-  }
-  .ui-page {
-    min-height: 0px !important;
-  }
+
+#controller-container {
+  width: 100%;
+  position: relative;
+  height: 270px;
+}
+
+div.arrow-control {
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  color: #fff;
+  line-height: 90px;
+  font-size: 80px;
+  text-align: center;
+}
+
+#left.arrow-control {
+  top: 90px;
+  left: 0px;
+  background: #ff0000;
+}
+
+#right.arrow-control {
+  background: #00ff00;
+  top: 90px;
+  left: 180px;
+}
+
+#down.arrow-control {
+  left: 90px;
+  top: 180px;
+  background: #0000ff;
+}
+
+#up.arrow-control {
+  top: 0px;
+  left: 90px;
+  background: #ff00ff;
+}
+
+#a-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 200px;
+  height: 270px;
+  background: #00ff00;
+}
+
+.ui-loader {
+  display: none;
+}
+
+.ui-page {
+  min-height: 0px !important;
+}
