@@ -1,6 +1,6 @@
 //var ipAddress = 'http://192.17.192.148:8000'; // Val
-// var ipAddress = 'http://192.17.207.254:8000'; // Matt
- var ipAddress = 'http://facebook-hack.nodejitsu.com'; // production
+var ipAddress = 'http://192.17.207.254:8000'; // Matt
+ // var ipAddress = 'http://facebook-hack.nodejitsu.com'; // production
 
 function makeid()
 {
@@ -39,17 +39,17 @@ function registerAsButton(element, event, data){
   //
   // DEVELOPMENT
   //
-    //element.on({
-      //'vmousedown': function(e) {
-        //socket.emit(event, $.extend(data, {pressed: true, id: mId}));
-      //},
-      //'vmouseup': function(e) {
-        //socket.emit(event, $.extend(data, {pressed: false, id: mId}));
-      //},
-      //'vmousecancel': function(e) {
-        //socket.emit(event, $.extend(data, {pressed: false, id: mId}));
-      //}
-    //});
+    // element.on({
+    //   'vmousedown': function(e) {
+    //     socket.emit(event, $.extend(data, {pressed: true, id: mId}));
+    //   },
+    //   'vmouseup': function(e) {
+    //     socket.emit(event, $.extend(data, {pressed: false, id: mId}));
+    //   },
+    //   'vmousecancel': function(e) {
+    //     socket.emit(event, $.extend(data, {pressed: false, id: mId}));
+    //   }
+    // });
 }
 registerAsButton($('#left'), 'move', {dir: 'left'});
 registerAsButton($('#right'), 'move', {dir: 'right'});
