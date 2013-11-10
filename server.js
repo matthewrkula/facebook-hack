@@ -2,8 +2,8 @@ var app = require('http').createServer(handler)
   , io = require('socket.io').listen(app)
   , fs = require('fs');
 
-// var port = 80; // production
-var port = 8000; // Val/Matt development
+var port = 80; // production
+//var port = 8000; // Val/Matt development
 
 app.listen(port);
 

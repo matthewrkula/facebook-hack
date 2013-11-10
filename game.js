@@ -1,6 +1,6 @@
 //var ipAddress = 'http://192.17.192.148:8000'; // Val
-var ipAddress = 'http://192.17.207.254:8000'; // Matt
-// var ipAddress = 'http://facebook-hack.nodejitsu.com'; // production
+//var ipAddress = 'http://192.17.207.254:8000'; // Matt
+var ipAddress = 'http://facebook-hack.nodejitsu.com'; // production
 
 var canvas = $("#canvas")[0];
 var ctx = canvas.getContext("2d");
