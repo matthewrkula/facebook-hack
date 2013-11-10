@@ -91,14 +91,6 @@ function Bomb(player){
           console.log(_this.player.score);
         }
       }
-
-      // for(var i=0; i < players.length; i++){
-      //   var player = players[i];
-        // if(Math.sqrt(Math.pow(x - player.x, 2) + Math.pow(y - player.y, 2)) < _this.radius){
-        //   player.kill();
-        // }
-      // }
-
     } else {
       ctx.fillRect(this.x, this.y, 10, 10);
     }
@@ -120,12 +112,10 @@ function paint(){
   ctx.strokeStyle = "black";
   ctx.strokeRect(0, 0, w, h);
 
-  for(var i =0; i < bombs.length; i++)
+  for (var i =0; i < bombs.length; i++)
     bombs[i].paint(ctx);
 
-  // for(i =0; i < players.length; i++)
-  //   players[i].paint(ctx);
-  for(var playerId in players)
+  for (var playerId in players)
     players[playerId].paint(ctx);
 }
 
@@ -136,7 +126,7 @@ var nextColorIndex = 0;
 
 var socket = io.connect(ipAddress);
 
-socket.on('add-player', function(data){
+socket.on('add-player', function(data) {
   var scoreDiv = document.createElement('div');
   scoreDiv.id = 'player-score-' + data.id;
   scoreDiv.className = 'player-score';
