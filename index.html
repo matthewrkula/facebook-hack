@@ -31,10 +31,9 @@
       this.color = color;
       this.score = 0;
       this.kill = function(){
-        this.x = Math.random()*w;
-        this.y = Math.random()*h;
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
         this.score = this.score - 1;
-        console.log(this.score);
       }
       this.paint = function(ctx){
         ctx.fillStyle = color;
@@ -65,7 +64,7 @@
           if(_this.radius < 70)
             _this.radius += 8;
           else{
-            bombs.splice(bombs.indexOf(_this), 1);
+            bombs.splice(bombs.indexOf(_this), 1);    // Destroy this bomb
           }
 
           for(var i=0; i < players.length; i++){
@@ -75,8 +74,7 @@
             }
           }
 
-
-        }else{
+        } else {
           ctx.fillRect(this.x, this.y, 10, 10);
         }
       }
