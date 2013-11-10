@@ -21,6 +21,10 @@ function handler(req, res) {
 }
 
 io.sockets.on('connection', function (socket) {
+  socket.on('quit-game', function(data) {
+    socket.broadcast.emit('quit-game', data);
+  });
+
   socket.on('new-player', function(data) {
     socket.broadcast.emit('add-player', data);
   });

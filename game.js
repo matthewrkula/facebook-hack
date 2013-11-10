@@ -70,7 +70,7 @@ function Player(id, x, y, color) {
   };
 
   this.removePlayer = function(playerId) {
-    _this.removePlayerScore(_this.id);
+    _this.removePlayerScore(playerId);
     delete players[playerId];
   };
 
@@ -153,6 +153,10 @@ function setupScoreBoard(data) {
   scoreDiv.innerHTML = 0;
   document.getElementById('scores-container').appendChild(scoreDiv);
 }
+
+socket.on('quit-game', function(data) {
+  removePlayer(data.id);
+});
 
 socket.on('add-player', function(data) {
   setupScoreBoard(data);
