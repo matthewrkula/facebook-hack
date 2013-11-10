@@ -10,6 +10,7 @@ var bombs = [];
 var players = {};
 var playerWidth = 35;
 var playerHeight = 35;
+var idleLimit = 20;
 
 function Player(id, x, y, color) {
   this.id = id;
@@ -75,7 +76,7 @@ function Player(id, x, y, color) {
 
   this.incrementIdleCount = function() {
     _this.idleCount = _this.idleCount + 1;
-    _this.idleCount >= 20 ? _this.removePlayer(_this.id) : setTimeout(_this.incrementIdleCount, 1000);
+    _this.idleCount >= idleLimit ? _this.removePlayer(_this.id) : setTimeout(_this.incrementIdleCount, 1000);
   };
 
   setTimeout(this.incrementIdleCount, 1000);
@@ -105,7 +106,8 @@ function Bomb(player) {
 
       for (var playerId in players) {
         var player = players[playerId];
-        if (Math.sqrt(Math.pow(_this.x - player.x, 2) + Math.pow(_this.y - player.y, 2)) < _this.radius) {
+        if (Math.sqrt(Math.pow(_this.x - player.x + (playerWidth / 2), 2) + 
+            Math.pow(_this.y - player.y + (playerHeight / 2), 2)) < _this.radius) {
           player.kill();
           _this.player.incrementScore();
           console.log(_this.player.score);
