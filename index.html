@@ -20,6 +20,9 @@
     var w = $("#canvas").width();
     var h = $("#canvas").height();
 
+    var bombs = [];
+    var players = [];
+
     function Player(x, y, color){
       this.x = x;
       this.y = y;
@@ -30,8 +33,10 @@
         ctx.fillStyle = color;
         ctx.fillRect(this.x, this.y, 15, 15);
 
-        this.x += this.xVel;
-        this.y += this.yVel;
+        if(this.x + this.xVel <= w - 15 && this.x + this.xVel >= 0)
+          this.x += this.xVel;
+        if(this.y + this.yVel <= h - 15 && this.y + this.yVel >= 0)
+          this.y += this.yVel;
       }
     }
 
@@ -41,6 +46,7 @@
       var _this = this;
       this.radius = 0;
       this.hasExploded = false;
+      this.destroyed = false;
 
       this.paint = function(ctx){
         ctx.fillStyle = "red";
@@ -51,6 +57,19 @@
           ctx.fill();
           if(_this.radius < 70)
             _this.radius += 8;
+          else{
+            console.log('asdf')
+            delete this;
+          }
+
+          for(var i=0; i < players.length; i++){
+            var player = players[i];
+            if(Math.sqrt(Math.pow(x - player.x, 2) + Math.pow(y - player.y, 2)) < _this.radius){
+              player.x = Math.random()*w;
+              player.y = Math.random()*h;
+            }
+          }
+
 
         }else{
           ctx.fillRect(this.x, this.y, 10, 10);
@@ -65,8 +84,6 @@
       setTimeout(this.explode, 2000);
     }
 
-    var bombs = [];
-    var players = [];
 
     players.push(new Player(100, 100, "blue"));
 
@@ -85,7 +102,7 @@
 
     setInterval(paint, 60);
 
-    var socket = io.connect('http://localhost');
+    var socket = io.connect('http://192.17.207.254:8000');
 
     socket.on('a-btn', function (data) {
       if(data.down){

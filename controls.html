@@ -66,30 +66,31 @@
     var socket = io.connect('http://192.17.207.254:8000');
 
     function registerAsButton(element, event, data){
-      element.on({
-        'touchend':function(e){
-          socket.emit(event, $.extend(data, {down: false}));
-      window.navigator.vibrate(200);
-        },
-        'touchstart': function(e){
-          socket.emit(event, $.extend(data, {down: true}));
-        },
-        'touchcancel': function(e){
-          socket.emit(event, $.extend(data, {down: false}));
-        },
-      });
 
       // element.on({
-      //   'vmousedown': function(e){
+      //   'touchend':function(e){
+      //     socket.emit(event, $.extend(data, {down: false}));
+      // window.navigator.vibrate(200);
+      //   },
+      //   'touchstart': function(e){
       //     socket.emit(event, $.extend(data, {down: true}));
       //   },
-      //   'vmouseup':function(e){
-      //     socket.emit(event, $.extend(data, {down: false}));
-      //   },
-      //   'vmousecancel': function(e){
+      //   'touchcancel': function(e){
       //     socket.emit(event, $.extend(data, {down: false}));
       //   },
       // });
+
+       element.on({
+         'vmousedown': function(e){
+           socket.emit(event, $.extend(data, {down: true}));
+         },
+         'vmouseup':function(e){
+           socket.emit(event, $.extend(data, {down: false}));
+         },
+         'vmousecancel': function(e){
+           socket.emit(event, $.extend(data, {down: false}));
+        },
+       });
     }
     registerAsButton($('#left'), 'move', {dir: 'left'});
     registerAsButton($('#right'), 'move', {dir: 'right'});
