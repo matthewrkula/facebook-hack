@@ -1,6 +1,6 @@
 {
   "name": "facebook-hack",
-  "subdomain": "facebook-hack",
+  "subdomain": "mattkulahack",
   "scripts": {
     "start": "node server.js"
   },
